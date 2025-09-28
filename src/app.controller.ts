@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('api')  // 添加 'api' 前缀
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -20,12 +20,11 @@ export class AppController {
     };
   }
 
-  // 添加一个测试路由来验证路由是否工作
   @Get('test')
   getTest() {
     return {
       message: '测试路由工作正常！',
-      usersApiInfo: '请访问 /users 来测试用户API'
+      usersApiInfo: '请访问 /api/users 来测试用户API'
     };
   }
 }
