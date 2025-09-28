@@ -13,7 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
-@Controller('api/users')  // 改为 'api/users' 保持一致
+@Controller('users')  // 只需要 'users'，全局前缀会自动添加
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -38,7 +38,8 @@ export class UsersController {
   findAll() {
     return {
       success: true,
-      data: this.usersService.findAll()
+      data: this.usersService.findAll(),
+      count: this.usersService.findAll().length
     };
   }
 
