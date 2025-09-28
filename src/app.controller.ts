@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()  // 使用全局前缀，所以这里不需要写 'api'
+@Controller() // 使用全局前缀，所以这里不需要写 'api'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -21,8 +21,8 @@ export class AppController {
         home: '/api',
         health: '/api/health',
         users: '/api/users',
-        userStats: '/api/users/stats'
-      }
+        userStats: '/api/users/stats',
+      },
     };
   }
 
@@ -31,7 +31,7 @@ export class AppController {
     return {
       message: '✅ 全局前缀测试成功！',
       globalPrefix: 'api',
-      usersApiInfo: '请访问 /api/users 来测试用户API'
+      usersApiInfo: '请访问 /api/users 来测试用户API',
     };
   }
 }

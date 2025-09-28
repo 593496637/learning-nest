@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "mcp__ide__getDiagnostics",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nrefactor: 重构应用结构，简化控制器和添加用户模块\n\n- 简化 app.controller.ts，移除用户相关端点，添加健康检查端点\n- 移除旧的用户服务和实体类\n- 添加新的 users 模块结构\n- 更新应用模块以导入用户模块\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(npm run test:e2e:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

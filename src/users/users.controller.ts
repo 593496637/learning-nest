@@ -12,10 +12,22 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { formatDateToChinese } from '../common/utils/date.util';
+import { User } from './entities/user.entity';
 
-@Controller('users')  // 只需要 'users'，全局前缀会自动添加
+@Controller('users') // 只需要 'users'，全局前缀会自动添加
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  private formatUserData(user: User) {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      age: user.age,
+      createdAt: formatDateToChinese(user.createdAt),
+    };
+  }
 
   @Post()
   create(@Body() userData: CreateUserDto) {
@@ -24,7 +36,7 @@ export class UsersController {
       return {
         success: true,
         message: '用户创建成功',
-        data: user,
+        data: this.formatUserData(user),
       };
     } catch (error: unknown) {
       throw new HttpException(
@@ -36,10 +48,11 @@ export class UsersController {
 
   @Get()
   findAll() {
+    const users = this.usersService.findAll();
     return {
       success: true,
-      data: this.usersService.findAll(),
-      count: this.usersService.findAll().length
+      data: users.map((user) => this.formatUserData(user)),
+      count: users.length,
     };
   }
 
@@ -47,7 +60,7 @@ export class UsersController {
   getStats() {
     return {
       success: true,
-      data: this.usersService.getStats()
+      data: this.usersService.getStats(),
     };
   }
 
@@ -59,7 +72,7 @@ export class UsersController {
     }
     return {
       success: true,
-      data: user,
+      data: this.formatUserData(user),
       message: '用户查询成功',
     };
   }
@@ -75,7 +88,7 @@ export class UsersController {
     }
     return {
       success: true,
-      data: user,
+      data: this.formatUserData(user),
       message: '用户更新成功',
     };
   }
