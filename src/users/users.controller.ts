@@ -13,7 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
-@Controller('users')
+@Controller('api/users')  // 改为 'api/users' 保持一致
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -22,8 +22,8 @@ export class UsersController {
     try {
       const user = this.usersService.create(userData);
       return {
+        success: true,
         message: '用户创建成功',
-        user,
         data: user,
       };
     } catch (error: unknown) {
@@ -36,12 +36,18 @@ export class UsersController {
 
   @Get()
   findAll() {
-    return this.usersService.findAll();
+    return {
+      success: true,
+      data: this.usersService.findAll()
+    };
   }
 
   @Get('stats')
   getStats() {
-    return this.usersService.getStats();
+    return {
+      success: true,
+      data: this.usersService.getStats()
+    };
   }
 
   @Get(':id')
